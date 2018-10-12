@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="机器学习实战之集体智慧编程2:聚类聚类的作用通过聚类,我们可以跟踪统计消费者信息,发现具有相似消费习惯的群体,并据此开发相应的产品或者市场策略 监督学习与无监督学习监督学习利用样本输入和期望输出来学习如何预测的技术  神经网络 决策树 向量支持机 贝叶斯过滤  无监督学习无监督学习不是利用样本进行训练,而是要在一组数据中找寻某种结构  聚类 非负矩阵因式分解 自组织映射">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js学习笔记">
+<meta property="og:url" content="http://yoursite.com/js学习笔记/index.html">
+<meta property="og:site_name" content="还珠楼">
+<meta property="og:description" content="机器学习实战之集体智慧编程2:聚类聚类的作用通过聚类,我们可以跟踪统计消费者信息,发现具有相似消费习惯的群体,并据此开发相应的产品或者市场策略 监督学习与无监督学习监督学习利用样本输入和期望输出来学习如何预测的技术  神经网络 决策树 向量支持机 贝叶斯过滤  无监督学习无监督学习不是利用样本进行训练,而是要在一组数据中找寻某种结构  聚类 非负矩阵因式分解 自组织映射">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="f:/MeachineLearning/集体智慧编程/chapter3/分级聚类.jpg">
+<meta property="og:image" content="f:/MeachineLearning/集体智慧编程/chapter3/k-均值聚类.jpg">
+<meta property="og:image" content="f:/MeachineLearning/集体智慧编程/chapter3/聚类.png">
+<meta property="og:updated_time" content="2018-10-11T11:39:35.522Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js学习笔记">
+<meta name="twitter:description" content="机器学习实战之集体智慧编程2:聚类聚类的作用通过聚类,我们可以跟踪统计消费者信息,发现具有相似消费习惯的群体,并据此开发相应的产品或者市场策略 监督学习与无监督学习监督学习利用样本输入和期望输出来学习如何预测的技术  神经网络 决策树 向量支持机 贝叶斯过滤  无监督学习无监督学习不是利用样本进行训练,而是要在一组数据中找寻某种结构  聚类 非负矩阵因式分解 自组织映射">
+<meta name="twitter:image" content="f:/MeachineLearning/集体智慧编程/chapter3/分级聚类.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/js学习笔记/"/>
+
+
+
+
+
+  <title>js学习笔记 | 还珠楼</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">还珠楼</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">还珠重地,闲人勿闯</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-杂谈">
+          <a href="/awesome" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            杂谈
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/js学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="冷鸢">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还珠楼">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-11T15:24:16+08:00">
+                2018-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js学习/" itemprop="url" rel="index">
+                    <span itemprop="name">js学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="机器学习实战之集体智慧编程2-聚类"><a href="#机器学习实战之集体智慧编程2-聚类" class="headerlink" title="机器学习实战之集体智慧编程2:聚类"></a>机器学习实战之集体智慧编程2:聚类</h1><h2 id="聚类的作用"><a href="#聚类的作用" class="headerlink" title="聚类的作用"></a>聚类的作用</h2><p>通过聚类,我们可以跟踪统计消费者信息,发现具有相似消费习惯的群体,并据此开发相应的产品或者市场策略</p>
+<h2 id="监督学习与无监督学习"><a href="#监督学习与无监督学习" class="headerlink" title="监督学习与无监督学习"></a>监督学习与无监督学习</h2><h3 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h3><p>利用样本输入和期望输出来学习如何预测的技术</p>
+<ul>
+<li>神经网络</li>
+<li>决策树</li>
+<li>向量支持机</li>
+<li>贝叶斯过滤</li>
+</ul>
+<h3 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h3><p>无监督学习不是利用样本进行训练,而是要在一组数据中找寻某种结构</p>
+<ul>
+<li>聚类</li>
+<li>非负矩阵因式分解</li>
+<li>自组织映射</li>
+</ul>
+<a id="more"></a>
+<h2 id="数据源"><a href="#数据源" class="headerlink" title="数据源"></a>数据源</h2><p>由于本文主要讲述聚类,所以对数据来源不做记录,此处提供本文数据源下载地址</p>
+<p>读取数据:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 读取博客的统计数据</span><br><span class="line">def readFile():</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'blogdata.txt'</span>, <span class="string">'r'</span>)<span class="keyword">as</span> f:</span><br><span class="line">        lines = [line <span class="keyword">for</span> line <span class="keyword">in</span> f]</span><br><span class="line">        # 第一行数据是列名称,去掉第一个blog字样</span><br><span class="line">        colNames = lines[<span class="number">0</span>].replace(<span class="string">'\n'</span>, <span class="string">''</span>).split(<span class="string">'\t'</span>)[<span class="number">1</span>:]</span><br><span class="line">        # 每一行的第一个数据是行名称</span><br><span class="line">        rowNames = []</span><br><span class="line">        # data数据不包含每一行的第一列</span><br><span class="line">        data = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(lines)):</span><br><span class="line">            # 去除换行符合空格</span><br><span class="line">            l = lines[i].replace(<span class="string">'\n'</span>, <span class="string">''</span>).split(<span class="string">'\t'</span>)</span><br><span class="line">            # 行名是第一个数据</span><br><span class="line">            rowNames.append(l[<span class="number">0</span>])</span><br><span class="line">            data.append([float(x) <span class="keyword">for</span> x <span class="keyword">in</span> l[<span class="number">1</span>:]])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> colNames, rowNames, data</span><br></pre></td></tr></table></figure>
+<h2 id="聚类分类"><a href="#聚类分类" class="headerlink" title="聚类分类"></a>聚类分类</h2><ul>
+<li>分级聚类</li>
+<li>k-均值聚类</li>
+<li>二位空间聚类</li>
+</ul>
+<h2 id="分级聚类"><a href="#分级聚类" class="headerlink" title="分级聚类"></a>分级聚类</h2><p>通过连续的把最相近的群组合并为新的群组来构造一个全新的群组,每一个群组都是从单一元素开始的,其过程如下图:</p>
+<p><img src="F:\MeachineLearning\集体智慧编程\chapter3\分级聚类.jpg" alt="分级聚类"></p>
+<p>对于数据的紧密度,我们依然采用上一篇提到过的皮尔逊系数:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 比较数据d1和d2的相似度</span><br><span class="line">def pearson(d1, d2):</span><br><span class="line">    # 求和</span><br><span class="line">    sum1 = sum(d1)</span><br><span class="line">    sum2 = sum(d2)</span><br><span class="line">    # 平方和</span><br><span class="line">    sumSq1 = sum([pow(v, <span class="number">2</span>) <span class="keyword">for</span> v <span class="keyword">in</span> d1])</span><br><span class="line">    sumSq2 = sum([pow(v, <span class="number">2</span>) <span class="keyword">for</span> v <span class="keyword">in</span> d2])</span><br><span class="line"></span><br><span class="line">    # 乘积之和</span><br><span class="line">    pSum = sum([d1[i] * d2[i] <span class="keyword">for</span> i <span class="keyword">in</span> range(len(d1))])</span><br><span class="line"></span><br><span class="line">    num = pSum - (sum1 * sum2 / len(d1))</span><br><span class="line">    den = math.sqrt(((sumSq1 - pow(sum1, <span class="number">2</span>) / len(d1)) * (sumSq2 - pow(sum2, <span class="number">2</span>) / len(d2))))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> den == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    # num/den得到皮尔逊系数,这个数字越大表示两个数据集相似度越高</span><br><span class="line">    # 用1-num/den得到的结果表示两个数据集之间的距离,相似度越高距离越近</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> - num / den</span><br></pre></td></tr></table></figure>
+<p>新建一个类作为聚类的载体:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 用来保存聚合数据的类</span><br><span class="line"># vec 保存聚合数据</span><br><span class="line"># left 是聚合数据的左节点</span><br><span class="line"># right 是聚合数据的右节点</span><br><span class="line"># id 可以用来判断数据是原始数据还是聚合数据,如果是原始数据还可以根据id获取对应的行名称</span><br><span class="line"># distance中保存原始数据的距离</span><br><span class="line">class bicluster:</span><br><span class="line">    def __init__(self, vec, left=None, right=None, id=None, distance=None):</span><br><span class="line">        self.vec = vec</span><br><span class="line">        self.left = left</span><br><span class="line">        self.right = right</span><br><span class="line">        self.id = id</span><br><span class="line">        self.distance = distance</span><br></pre></td></tr></table></figure>
+<p>有了上面的载体,我们只需要循环把两个最相近的组聚合,然后重复这个过程,就能得到一个包含了所有数据的最终聚类</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"># 分级聚类,将数据聚合成一个bicluster对象</span><br><span class="line">def hcluster(data, distance=pearson):</span><br><span class="line">    distances = &#123;&#125;</span><br><span class="line">    currentclustId = <span class="number">-1</span></span><br><span class="line">    # 原始的聚类就是所有数据的集合</span><br><span class="line">    clust = [bicluster(data[i], id=i) <span class="keyword">for</span> i <span class="keyword">in</span> range(len(data))]</span><br><span class="line">    # 大循环</span><br><span class="line">    <span class="keyword">while</span> len(clust) &gt; <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">        # 默认0/1是每次大循环开始时最近的数据</span><br><span class="line">        # lowestpair保存最近的一组数据,closest保存他们的距离</span><br><span class="line">        lowestpair = (<span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">        closest = distance(clust[<span class="number">0</span>].vec, clust[<span class="number">1</span>].vec)</span><br><span class="line">        # 两次循环保证所有数据可以比较</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(clust)):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(len(clust)):</span><br><span class="line">                # 不跟自己比</span><br><span class="line">                <span class="keyword">if</span> i == j: <span class="keyword">continue</span></span><br><span class="line">                # 如果当前数据没有计算过才计算,不直接用i,j是因为聚合之后i,j就不跟原始的数据对应了</span><br><span class="line">                <span class="keyword">if</span> (clust[i].id, clust[j].id) not <span class="keyword">in</span> distances:</span><br><span class="line">                    distances[(clust[i].id, clust[j].id)] = distance(clust[i].vec, clust[j].vec)</span><br><span class="line"></span><br><span class="line">                d = distances[(clust[i].id, clust[j].id)]</span><br><span class="line">                # 当前的比最近的还近,替换</span><br><span class="line">                <span class="keyword">if</span> d &lt; closest:</span><br><span class="line">                    # 在这个大循环结束之前,i/j组合还可以代表最近的组</span><br><span class="line">                    lowestpair = (i, j)</span><br><span class="line">                    closest = d</span><br><span class="line"></span><br><span class="line">        # 获取当前最近组的所有项的平均值</span><br><span class="line">        mergevec = [(clust[lowestpair[<span class="number">0</span>]].vec[i] + clust[lowestpair[<span class="number">1</span>]].vec[i]) / <span class="number">2</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(len(data[<span class="number">0</span>]))]</span><br><span class="line">        # 构造新的组,这个组中包含了子数据的所有信息</span><br><span class="line">        newclust = bicluster(mergevec, left=clust[lowestpair[<span class="number">0</span>]], right=clust[lowestpair[<span class="number">1</span>]], id=currentclustId,</span><br><span class="line">                             distance=closest)</span><br><span class="line"></span><br><span class="line">        # 清除原始数据组,加入新数据</span><br><span class="line">        currentclustId -= <span class="number">1</span></span><br><span class="line">        del clust[lowestpair[<span class="number">1</span>]]</span><br><span class="line">        del clust[lowestpair[<span class="number">0</span>]]</span><br><span class="line">        clust.append(newclust)</span><br><span class="line">    print(clust[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">return</span> clust[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<p>通过循环执行,得到了唯一的聚类,我们可以来尝试一下使用:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">colNames, rowNames, data = readFile()</span><br><span class="line">hcluster(data)</span><br></pre></td></tr></table></figure>
+<p>这个过程会消耗一定的时间,结果会打印出来一个bicluster的对象</p>
+<p>但是这样一个对象并不能让我们直观的感受到各个数据之间的关系,所以我们需要想办法使聚类的结构关系可视化,此处引入一个很好用的Python图像处理库PythonImagingLibrary,简称PIL,如果对这个库不了解的可以在网上学习一下简单的使用,此处不做过多介绍</p>
+<p>要绘制图片,我们需要知道各个元素的高度和图片的宽度,由于线条的长度会根据原始数据的误差进行调整,所以我们还需要计算出总得误差并据此生成一个误差因子:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 获取聚类的高度</span><br><span class="line">def getHeight(bicluster):</span><br><span class="line">    # 是原始数据,高度为1</span><br><span class="line">    <span class="keyword">if</span> bicluster.left is None and bicluster.right is None:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    # 非原始数据,高度是两个子数据高度之和</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> getHeight(bicluster.left) + getHeight(bicluster.right)</span><br><span class="line"></span><br><span class="line">#获取聚类的误差</span><br><span class="line">def getDepth(bicluster):</span><br><span class="line">    # 原始数据误差为0</span><br><span class="line">    <span class="keyword">if</span> bicluster.left is None and bicluster.right is None:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    # 聚合数据取误差较大者</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> max(getDepth(bicluster.left),     	getDepth(bicluster.right)) + bicluster.distance</span><br></pre></td></tr></table></figure>
+<p>这样我们就可以开始绘图了:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"># 绘制图片</span><br><span class="line">def drawDendrogram(bicluster, labels, jpge=<span class="string">'clusters.jpeg'</span>):</span><br><span class="line">    # 设置宽高数据</span><br><span class="line">    h = getHeight(bicluster) * <span class="number">20</span></span><br><span class="line">    w = <span class="number">1200</span></span><br><span class="line">    depath = getDepth(bicluster)</span><br><span class="line">    # 宽度固定,所有留一点额外的空间</span><br><span class="line">    scaling = float((w - <span class="number">150</span>) / depath)</span><br><span class="line"></span><br><span class="line">    image = Image.new(<span class="string">'RGB'</span>, (w, h), (<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>))</span><br><span class="line">    draw = ImageDraw.Draw(image)</span><br><span class="line"></span><br><span class="line">    draw.line((<span class="number">0</span>, h / <span class="number">2</span>, <span class="number">10</span>, h / <span class="number">2</span>), (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">    print(<span class="string">'draw start...'</span>)</span><br><span class="line">    drawNode(bicluster, draw, <span class="number">10</span>, h / <span class="number">2</span>, scaling, labels)</span><br><span class="line">    image.save(jpge, <span class="string">'JPEG'</span>)</span><br><span class="line"></span><br><span class="line">#递归绘制细节</span><br><span class="line">def drawNode(bicluster, draw, x, y, scaling, labels):</span><br><span class="line">    # 原始数据,显示文字即可</span><br><span class="line">    <span class="keyword">if</span> bicluster.left is None and bicluster.right is None:</span><br><span class="line">        draw.text((x + <span class="number">5</span>, y - <span class="number">7</span>), labels[bicluster.id], (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">    # 聚合数据,根据聚合两个元素的距离来画</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        h1 = getHeight(bicluster.left) * <span class="number">20</span></span><br><span class="line">        h2 = getHeight(bicluster.right) * <span class="number">20</span></span><br><span class="line">        # 留出两个子元素高度的空隙</span><br><span class="line">        top = y - (h1 + h2) / <span class="number">2</span></span><br><span class="line">        bottom = y + (h1 + h2) / <span class="number">2</span></span><br><span class="line">        # 画出竖直的线,高度是两个子元素高度的一半</span><br><span class="line">        draw.line((x, top + h1 / <span class="number">2</span>, x, bottom - h2 / <span class="number">2</span>), fill=(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">        # 画出水平的线,宽度是缩放系数X距离</span><br><span class="line">        ll = scaling * bicluster.distance</span><br><span class="line">        draw.line((x, top + h1 / <span class="number">2</span>, x + ll, top + h1 / <span class="number">2</span>), fill=(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line">        draw.line((x, bottom - h2 / <span class="number">2</span>, x + ll, bottom - h2 / <span class="number">2</span>), fill=(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">        # 循环,画左右两个子节点</span><br><span class="line">        drawNode(bicluster.left, draw, x + ll, top + h1 / <span class="number">2</span>, scaling, labels)</span><br><span class="line">        drawNode(bicluster.right, draw, x + ll, bottom - h2 / <span class="number">2</span>, scaling, labels)</span><br></pre></td></tr></table></figure>
+<p>完成上面的代码之后就可以把我们得到的分级聚类结果显示出来了,还不赶紧试试</p>
+<p>有时候我们不仅想获得行元素的聚类,也想看一下列元素的聚类结果,对应我们这次操作的数据来看,行元素的聚类可以让我们查看博客之间的相似性,但是对列元素也就是词组的相似性分析有时候对我们也很有意义,所以我们可以对数据做一下矩阵转换,再对变换过的矩阵做相同的操作,得到我们想要的结果:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def translateXY(data):</span><br><span class="line">    result = []</span><br><span class="line">    # 获取列数,用此进行循环,每个新的组包含了原来的一列元素</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> range(len(data[<span class="number">0</span>])):</span><br><span class="line">        # x代表第x列,y代表第y行,这样把每一列的元素都取出来形成新的数组</span><br><span class="line">        newrow = [data[y][x] <span class="keyword">for</span> y <span class="keyword">in</span> range(len(data))]</span><br><span class="line">        # 这样添加的数据,他的列数和他的索引是相同的</span><br><span class="line">        result.append(newrow)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+<p>一起调用一下看看:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">colNames, rowNames, data = readFile()</span><br><span class="line">drawDendrogram(hcluster(data), rowNames)</span><br><span class="line">drawDendrogram(hcluster(translateXY(data)), colNames, jpge=<span class="string">'trans_clusters.jpeg'</span>)</span><br><span class="line">print(<span class="string">'end'</span>)</span><br></pre></td></tr></table></figure>
+<p>怎么样,同级目录下是不是多出来两张图片,显示了分组的详细情况?</p>
+<p>优点:形象,直观</p>
+<p>缺点:并没有真正将数据分组,计算量比较大,很耗时</p>
+<h2 id="k-均值聚类"><a href="#k-均值聚类" class="headerlink" title="k-均值聚类"></a>k-均值聚类</h2><p>k-均值聚类首先确认每一列元素的范围(计算最大值最小值),然后随机生成k个行,这些行里的每一个列元素都在范围之内</p>
+<p>之后我们可以根据元素和这k个随机行之间的距离把元素分为k组,得到了k个组之后我们再把这k个组的所有数据取平均值,就得到了新的组,然后以新的组为中心,不断的重复运算直到组不再变化,就得到了k个组,过程如下:</p>
+<p><img src="F:\MeachineLearning\集体智慧编程\chapter3\k-均值聚类.jpg" alt="k-均值聚类"></p>
+<p>代码实现:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"># k均值聚类</span><br><span class="line">def kclust(data, rowNames, distance=pearson, k=5):</span><br><span class="line">    # 存一下列数,经常要用</span><br><span class="line">    col_num = len(data[0])</span><br><span class="line">    # 随机列的数据</span><br><span class="line">    randomrows = []</span><br><span class="line">    # 通过k-v的形式存储每个随机聚点下的子数据</span><br><span class="line">    last_clusts = &#123;&#125;</span><br><span class="line">    new_clusts = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    # 循环列,拿到每一列的最大值和最小值</span><br><span class="line">    # for x in range(len(data[0])):</span><br><span class="line">    #     # 最大值</span><br><span class="line">    #     col_max = max([row[x] for row in data])</span><br><span class="line">    #     # 最小值</span><br><span class="line">    #     col_min = min([row[x] for row in data])</span><br><span class="line">    #     # 每一列对应的正好是索引</span><br><span class="line">    #     max_min.append((col_max, col_min))</span><br><span class="line">    # 简写如下:</span><br><span class="line">    # 存储每一列的最大值和最小值</span><br><span class="line">    max_min = [(max([row[x] for row in data]), min([row[x] for row in data])) for x in range(col_num)]</span><br><span class="line"></span><br><span class="line">    # 随机k个行数据</span><br><span class="line">    for i in range(k):</span><br><span class="line">        # max_min[j][0]-max_min[j][1]表示取最大值和最小值的差值,在用这个值X随机数,在加上最小值</span><br><span class="line">        # 得到了最大值和最小值之间的一个随机值</span><br><span class="line">        # 把上述过程进行列数个次数,就得到了一个随机行</span><br><span class="line">        random_row = [(random.randint(0, 1) * (max_min[j][0] - max_min[j][1]) + max_min[j][1]) for j in range(col_num)]</span><br><span class="line">        randomrows.append(random_row)</span><br><span class="line"></span><br><span class="line">    # 大循环进行到数据不再更改</span><br><span class="line">    while True:</span><br><span class="line">        for i in range(k):</span><br><span class="line">            new_clusts[i] = []</span><br><span class="line"></span><br><span class="line">        # 拿每一行去跟随机行比,找到最近的,算进他的组里</span><br><span class="line">        for i in range(len(data)):</span><br><span class="line">            # 默认最近的是第一个随机行</span><br><span class="line">            c_index = 0</span><br><span class="line">            closest = distance(data[i], randomrows[c_index])</span><br><span class="line">            for j in range(1, k):</span><br><span class="line">                d = distance(randomrows[j], data[i])</span><br><span class="line">                # 找到了更近的</span><br><span class="line">                if d &lt; closest:</span><br><span class="line">                    c_index = j</span><br><span class="line">                    closest = d</span><br><span class="line">            # 把数据放入最近的聚点的名下</span><br><span class="line">            new_clusts[c_index].append((rowNames[i], data[i]))</span><br><span class="line">        # 如果重新排之后数据没变化,说明已完成,退出循环</span><br><span class="line">        if last_clusts == new_clusts: break</span><br><span class="line">        # 数据复制,直接=的话会一直相同,用copy复制出来</span><br><span class="line">        last_clusts = new_clusts.copy()</span><br><span class="line"></span><br><span class="line">        # randomrows.clear()</span><br><span class="line">        # for k in new_clusts:</span><br><span class="line">        #</span><br><span class="line">        #     # 如果组里没东西,过</span><br><span class="line">        #     if new_clusts[k] is None or len(new_clusts[k]) == 0: continue</span><br><span class="line">        #     # 对于组中的每一列,求平均值,形成一个结果组,放进原来的随机组里</span><br><span class="line">        #     randomrows.append(</span><br><span class="line">        #         [sum([row[x] for row in new_clusts[k]]) / len(new_clusts[k]) for x in range(col_num)]</span><br><span class="line">        #     )</span><br><span class="line">        # 简写如下:</span><br><span class="line">        randomrows = [[sum([row[1][x] for row in new_clusts[k]]) / len(new_clusts[k]) for x in range(col_num)] for k in</span><br><span class="line">                      new_clusts if new_clusts[k] is not None and len(new_clusts[k]) != 0]</span><br><span class="line">    return new_clusts</span><br></pre></td></tr></table></figure>
+<p>由于函数使用了随机的中心点作为开始,所以每次聚类的结果都可能不同</p>
+<h2 id="对偏好的聚类"><a href="#对偏好的聚类" class="headerlink" title="对偏好的聚类"></a>对偏好的聚类</h2><p>皮尔逊系数更适用于统计数据,如果我们采用的是0/1表示的有/无的数据,就需要其他的度量方法,Tanimoto系数可以满足我们的需求</p>
+<p>他是通过数据的交集除以并集得到元素的相关度的,结果越大说明元素越相关</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def tanimoto(d1, d2):</span><br><span class="line">    # r1/r2表示d1/d2中的非无数据个数,sr表示交集个数,此处我采用0表示没有数据,1表示有</span><br><span class="line">    r1, r2, sr = 0, 0, 0</span><br><span class="line"></span><br><span class="line">    for i in range(len(d1)):</span><br><span class="line">        if d1[i] == 1:</span><br><span class="line">            r1 += 1</span><br><span class="line">        if d2[i] == 1:</span><br><span class="line">            r2 += 1</span><br><span class="line">        if d1[i] == d2[i]:</span><br><span class="line">            sr += 1</span><br><span class="line">    # sr/(r1+r2-sr)得到的数据越大说明相似度越高,但是不利于我们看距离,</span><br><span class="line">    # 所以用1-sr/(r1+r2-sr)来表示距离,值越小说明距离越近,相似度越高</span><br><span class="line">    return 1.0-float(sr / (r1 + r2 - sr))</span><br></pre></td></tr></table></figure>
+<h2 id="二维聚类"><a href="#二维聚类" class="headerlink" title="二维聚类"></a>二维聚类</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">def scaledown(data, distance=pearson, rate=0.01):</span><br><span class="line">    n = len(data)</span><br><span class="line">    # 记录上次的误差值</span><br><span class="line">    last_err = None</span><br><span class="line">    # 记录数据的真实距离,这是我们的目标结果</span><br><span class="line">    realDis = [[distance(data[j], data[i]) for j in range(n)] for i in range(n)]</span><br><span class="line"></span><br><span class="line">    # 每一列随机生成一个坐标点,代表这一列的位置</span><br><span class="line">    rpoints = [[random.random(), random.random()] for i in range(n)]</span><br><span class="line">    # 做一个双层数组存储数据信息</span><br><span class="line">    fakeDis = [[[0.0] for j in range(n)] for i in range(n)]</span><br><span class="line">    while True:</span><br><span class="line">        # 求模拟点之间的距离,视为当前距离</span><br><span class="line">        for i in range(n):</span><br><span class="line">            for j in range(n):</span><br><span class="line">                fakeDis[i][j] = math.sqrt(sum([pow(rpoints[j][x] - rpoints[i][x], 2) for x in range(2)]))</span><br><span class="line"></span><br><span class="line">        grad = [[0.0, 0.0] for i in range(n)]</span><br><span class="line"></span><br><span class="line">        total_err = 0</span><br><span class="line">        for i in range(n):</span><br><span class="line">            for j in range(n):</span><br><span class="line">                if i == j: continue</span><br><span class="line">                # 记录当前两个点的误差值</span><br><span class="line">                err = (fakeDis[i][j] - realDis[i][j]) / realDis[i][j]</span><br><span class="line">                # i来移动,移动的距离是i,j在x/y轴上的差值/当前距离X误差</span><br><span class="line">                grad[i][0] += ((rpoints[i][0] - rpoints[j][0]) / fakeDis[i][j]) * err</span><br><span class="line">                grad[i][1] += ((rpoints[i][1] - rpoints[j][1]) / fakeDis[i][j]) * err</span><br><span class="line"></span><br><span class="line">                total_err += abs(err)</span><br><span class="line"></span><br><span class="line">        print(total_err)</span><br><span class="line">        # 移动之后如果会更混乱,则停止</span><br><span class="line">        if last_err is not None and total_err &gt;= last_err: break</span><br><span class="line">        last_err = total_err</span><br><span class="line">        # 根据计算结果移动点的位置</span><br><span class="line">        for i in range(n):</span><br><span class="line">            rpoints[i][0] -= grad[i][0] * rate</span><br><span class="line">            rpoints[i][1] -= grad[i][1] * rate</span><br><span class="line"></span><br><span class="line">    return rpoints</span><br></pre></td></tr></table></figure>
+<p>绘制聚类结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def drawPoints(points, labels, jpeg=&apos;sdc.jpeg&apos;):</span><br><span class="line">    # 白色背景图</span><br><span class="line">    image = Image.new(&apos;RGB&apos;, (2000, 2000), (255, 255, 255))</span><br><span class="line">    draw = ImageDraw.Draw(image)</span><br><span class="line">    # 取出移动完毕的点,拿到相应的名称显示出来</span><br><span class="line">    for i in range(len(points)):</span><br><span class="line">        x = points[i][0] * 1000</span><br><span class="line">        y = points[i][1] * 1000</span><br><span class="line">        draw.text((x, y), labels[i], fill=(0, 0, 0))</span><br><span class="line">    image.save(jpeg)</span><br></pre></td></tr></table></figure>
+<p>调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">colNames, rowNames, data = readFile()</span><br><span class="line">drawPoints(scaledown(data), rowNames)</span><br></pre></td></tr></table></figure>
+<h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="F:\MeachineLearning\集体智慧编程\chapter3\聚类.png" alt="聚类"></p>
+<h2 id="由于代码中都有很详细的注解-所以没有做过多的解释-有问题请留言或私信解决"><a href="#由于代码中都有很详细的注解-所以没有做过多的解释-有问题请留言或私信解决" class="headerlink" title="由于代码中都有很详细的注解,所以没有做过多的解释,有问题请留言或私信解决"></a>由于代码中都有很详细的注解,所以没有做过多的解释,有问题请留言或私信解决</h2>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" <i class="fa fa-tag"></i> js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/有一篇岩浆/" rel="prev" title="suibian">
+                suibian <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MDI3MS8xNjc5OA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="冷鸢" />
+            
+              <p class="site-author-name" itemprop="name">冷鸢</p>
+              <p class="site-description motion-element" itemprop="description">冷鸢</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Alvabill" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.freecodecamp.cn/alvabill" target="_blank" title="fcc">
+                      
+                        <i class="fa fa-fw fa-globe"></i>fcc</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/439a6eee60e1" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://blog.csdn.net/weixin_38796712" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习实战之集体智慧编程2-聚类"><span class="nav-number">1.</span> <span class="nav-text">机器学习实战之集体智慧编程2:聚类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类的作用"><span class="nav-number">1.1.</span> <span class="nav-text">聚类的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监督学习与无监督学习"><span class="nav-number">1.2.</span> <span class="nav-text">监督学习与无监督学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#监督学习"><span class="nav-number">1.2.1.</span> <span class="nav-text">监督学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无监督学习"><span class="nav-number">1.2.2.</span> <span class="nav-text">无监督学习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据源"><span class="nav-number">1.3.</span> <span class="nav-text">数据源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚类分类"><span class="nav-number">1.4.</span> <span class="nav-text">聚类分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分级聚类"><span class="nav-number">1.5.</span> <span class="nav-text">分级聚类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#k-均值聚类"><span class="nav-number">1.6.</span> <span class="nav-text">k-均值聚类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对偏好的聚类"><span class="nav-number">1.7.</span> <span class="nav-text">对偏好的聚类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二维聚类"><span class="nav-number">1.8.</span> <span class="nav-text">二维聚类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思维导图"><span class="nav-number">1.9.</span> <span class="nav-text">思维导图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#由于代码中都有很详细的注解-所以没有做过多的解释-有问题请留言或私信解决"><span class="nav-number">1.10.</span> <span class="nav-text">由于代码中都有很详细的注解,所以没有做过多的解释,有问题请留言或私信解决</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冷鸢</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">3.6k</span>
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+<span class="post-meta-divider">|</span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
