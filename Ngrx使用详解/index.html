@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端,AngularJS,Ngrx," />
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="前端,AngularJS,Ngrx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ngrx使用详解">
+<meta property="og:url" content="http://yoursite.com/Ngrx使用详解/index.html">
+<meta property="og:site_name" content="还珠楼">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/Ngrx使用详解/logo.png">
+<meta property="og:updated_time" content="2018-11-14T07:05:48.232Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ngrx使用详解">
+<meta name="twitter:image" content="http://yoursite.com/Ngrx使用详解/logo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/Ngrx使用详解/"/>
+
+
+
+
+
+  <title>Ngrx使用详解 | 还珠楼</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">还珠楼</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">还珠重地,闲人勿闯</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-杂谈">
+          <a href="/awesome" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            杂谈
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/Ngrx使用详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="冷鸢">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="还珠楼">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ngrx使用详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T14:32:28+08:00">
+                2018-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p class="description"></p>
+
+<img src="/Ngrx使用详解/logo.png" title="Ngrx使用详解">
+<a id="more"></a>
+<h2 id="ngrx是什么"><a href="#ngrx是什么" class="headerlink" title="ngrx是什么"></a><a href="https://github.com/ngrx/platform" target="_blank" rel="noopener">ngrx</a>是什么</h2><p>基于rxjs，参考redux的适用于angularjs的状态管理插件,可以用于全局变量的修改和监控</p>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h3 id="1-安装ngrx"><a href="#1-安装ngrx" class="headerlink" title="1.安装ngrx"></a>1.安装ngrx</h3><blockquote>
+<p>yarn add @ngrx/core @ngrx/router@latest -S</p>
+</blockquote>
+<h3 id="2-建立ngrx文件夹"><a href="#2-建立ngrx文件夹" class="headerlink" title="2.建立ngrx文件夹"></a>2.建立ngrx文件夹</h3><p>建立如图所示目录以存放文件</p>
+<p>| – src<br>​    | – app<br>​        | – ngrx<br>​            | – actions（文件夹）<br>​            | – reducers（文件夹）<br>​            | – index.ts</p>
+<h3 id="3-在actions目录下创建action"><a href="#3-在actions目录下创建action" class="headerlink" title="3.在actions目录下创建action"></a>3.在actions目录下创建action</h3><p>按照下述格式新建action文件：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Action &#125; <span class="keyword">from</span> <span class="string">'@ngrx/store'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以枚举或者const 声明常量</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">enum</span> ActionTypes &#123;</span><br><span class="line">  <span class="comment">//常量值： [作用对象]作用效果 或 作用对象_作用效果</span></span><br><span class="line">  CHANGE = <span class="string">'[THEME] CHANGE'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 继承自Action</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> Change <span class="keyword">implements</span> Action &#123;</span><br><span class="line">  readonly <span class="keyword">type</span> = ActionTypes.CHANGE;<span class="comment">//类型对应自己的常量</span></span><br><span class="line">	<span class="comment">// payload是触发action是可以传递的参数</span></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">public</span> payload: <span class="built_in">String</span></span>) &#123; &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 合并导出所有Action对象</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> Actions</span><br><span class="line">  = Change;</span><br></pre></td></tr></table></figure>
+<h3 id="4-在reducers目录下创建reducer"><a href="#4-在reducers目录下创建reducer" class="headerlink" title="4.在reducers目录下创建reducer"></a>4.在reducers目录下创建reducer</h3><p>按照下述格式新建reducer文件：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 导入对应的action对象</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> themeAction <span class="keyword">from</span> <span class="string">'../actions/theme'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// State是要保存的数据对象</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> State &#123;</span><br><span class="line">  theme: <span class="built_in">String</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//initialState是初始化的数据对象,部分属性可以从config属性中导入</span></span><br><span class="line"><span class="keyword">const</span> initialState: State = &#123;</span><br><span class="line">  theme: <span class="string">'theme1'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据action类型做对应的处理</span></span><br><span class="line"><span class="comment"> * @param state 持久化的对象</span></span><br><span class="line"><span class="comment"> * @param action 操作对象,包含type(类型)和payload(值)属性</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state = initialState, action: themeAction.Actions</span>): <span class="title">State</span> </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="comment">// 不同action分开处理</span></span><br><span class="line">    <span class="keyword">case</span> themeAction.ActionTypes.CHANGE:</span><br><span class="line">      <span class="comment">// 把要改变的属性合并到原对象中</span></span><br><span class="line">      <span class="comment">// 此处只要返回新的state对象即可</span></span><br><span class="line">      <span class="comment">// 简单对象不管新建或修改都可以</span></span><br><span class="line">      <span class="comment">// 复杂对象还是合并属性比较好,不然很容易丢失数据</span></span><br><span class="line">      <span class="comment">// 下面的写法同: Object.assign(&#123;&#125;,state,&#123;theme:action.payload&#125;)</span></span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, theme: action.payload &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 默认返回初始化对象</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 取数据,把自己需要的数据直接从State中取出来</span></span><br><span class="line"><span class="comment"> * @param state State对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getTheme = <span class="function">(<span class="params">state: State</span>) =&gt;</span> state.theme</span><br></pre></td></tr></table></figure>
+<h3 id="5-在index-ts中管理action和reducer"><a href="#5-在index-ts中管理action和reducer" class="headerlink" title="5.在index.ts中管理action和reducer"></a>5.在index.ts中管理action和reducer</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ActionReducerMap, createSelector, createFeatureSelector, ActionReducer, MetaReducer, &#125; <span class="keyword">from</span> <span class="string">'@ngrx/store'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; environment &#125; <span class="keyword">from</span> <span class="string">'src/environments/environment'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> themeReducer <span class="keyword">from</span> <span class="string">'./reducer/theme'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> layoutReducer <span class="keyword">from</span> <span class="string">'./reducer/layout'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> fromRouter <span class="keyword">from</span> <span class="string">'@ngrx/router-store'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 绑定key和模块,便于管理</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> State &#123;</span><br><span class="line">  _theme: themeReducer.State;</span><br><span class="line">  _layout: layoutReducer.State;</span><br><span class="line"></span><br><span class="line">  router: fromRouter.RouterReducerState;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 绑定key和reducer,便于管理和导入</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> reducers: ActionReducerMap&lt;State&gt; = &#123;</span><br><span class="line">  _theme: themeReducer.reducer,</span><br><span class="line">  _layout: layoutReducer.reducer,</span><br><span class="line">  router: fromRouter.routerReducer</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印actions</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">logger</span>(<span class="params">reducer: ActionReducer&lt;State&gt;</span>): <span class="title">ActionReducer</span>&lt;<span class="title">State</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (state: State, action: <span class="built_in">any</span>): <span class="function"><span class="params">any</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> result = reducer(state, action);</span><br><span class="line">    <span class="built_in">console</span>.groupCollapsed(action.type);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'prev state'</span>, state);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'action'</span>, action);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'next state'</span>, result);</span><br><span class="line">    <span class="built_in">console</span>.groupEnd();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据环境变量配置拦截器，此处只配置了store中值变化的日志打印</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> metaReducers: MetaReducer&lt;State&gt;[] = !environment.production</span><br><span class="line">  ? [logger]</span><br><span class="line">  : [];</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据key创建Selector</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getThemeState = createFeatureSelector&lt;State, themeReducer.State&gt;(</span><br><span class="line">  <span class="string">'_theme'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对数据进行处理,拿到自己想要的部分</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getTheme = createSelector(getThemeState, themeReducer.getTheme)</span><br></pre></td></tr></table></figure>
+<h3 id="6-在model中导入"><a href="#6-在model中导入" class="headerlink" title="6.在model中导入"></a>6.在model中导入</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; BrowserModule &#125; <span class="keyword">from</span> <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; NgModule &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; AppComponent &#125; <span class="keyword">from</span> <span class="string">'./app.component'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Page1Component &#125; <span class="keyword">from</span> <span class="string">'./pages/page1/page1.component'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Page2Component &#125; <span class="keyword">from</span> <span class="string">'./pages/page2/page2.component'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; StoreModule &#125; <span class="keyword">from</span> <span class="string">'@ngrx/store'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; reducers, metaReducers &#125; <span class="keyword">from</span> <span class="string">'./ngrx'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; AppRouter &#125; <span class="keyword">from</span> <span class="string">'./router'</span>;</span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent,</span><br><span class="line">    Page1Component,</span><br><span class="line">    Page2Component</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    AppRouter,</span><br><span class="line">    BrowserModule,</span><br><span class="line">     <span class="comment">//这里导入reducers</span></span><br><span class="line">    StoreModule.forRoot(reducers, &#123; metaReducers &#125;)</span><br><span class="line">  ],</span><br><span class="line">  providers: [],</span><br><span class="line">  bootstrap: [AppComponent]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="7-在文件中使用"><a href="#7-在文件中使用" class="headerlink" title="7.在文件中使用"></a>7.在文件中使用</h3><ol>
+<li><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法1(不推荐)</span></span><br><span class="line"><span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> store: Store&lt;fromRoot.State&gt;</span>) &#123;</span><br><span class="line">    <span class="comment">// 直接select,拿到Observal对象</span></span><br><span class="line">    <span class="keyword">this</span>.theme$ = <span class="keyword">this</span>.store.select(<span class="string">'_theme'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">// 方法2(推荐)</span></span><br><span class="line"><span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> store: Store&lt;fromRoot.State&gt;</span>) &#123;</span><br><span class="line">    <span class="comment">//通过管道处理</span></span><br><span class="line">    <span class="keyword">this</span>.theme$ = 	<span class="keyword">this</span>.store.pipe(select(fromRoot.getTheme))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="触发事件"><a href="#触发事件" class="headerlink" title="触发事件"></a>触发事件</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.store.dispatch(<span class="keyword">new</span>  	 	       themeAction.Change(themeName))</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="监听改变"><a href="#监听改变" class="headerlink" title="监听改变"></a>监听改变</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法1(不推荐,对应初始化的方法1)</span></span><br><span class="line"><span class="comment">// 把res对象赋值给本地对象之后即可在html中渲染</span></span><br><span class="line">ngOnInit() &#123;</span><br><span class="line">    <span class="keyword">this</span>.themeSub$ = <span class="keyword">this</span>.theme$.subscribe(<span class="function">(<span class="params">res: <span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(res)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">ngOnDestroy() &#123;</span><br><span class="line">   <span class="keyword">this</span>.themeSub$.unsubscribe()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2(推荐,对应初始化的方法2)</span></span><br><span class="line"><span class="comment">// 直接在html中使用  "&#123;&#123;theme$|async&#125;&#125;"</span></span><br><span class="line"><span class="comment">// 免去了绑定和解绑的过程</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>自此基本使用已经介绍完毕,下面说一下监听路由改变</p>
+<h2 id="监听路由"><a href="#监听路由" class="headerlink" title="监听路由"></a>监听路由</h2><p>监听路由的reducer和action跟正常的定义方法是一样的,唯一不同在于触发的方法</p>
+<p>触发方法如下:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> store: Store&lt;fromRoot.State&gt;, route: ActivatedRoute</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.countSub$ = route.params.pipe(map(<span class="function"><span class="params">params</span> =&gt;</span> <span class="keyword">new</span> countActions.CountAdd())).subscribe(store)</span><br><span class="line">    <span class="keyword">this</span>.count$ = <span class="keyword">this</span>.store.pipe(select(fromRoot.getCount))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>route中有路由对象,可以拿到想要的参数,那params去调用新建action,可以把param里的value传递到Action里,之后subscribe监听一下即可</p>
+<p>不要忘了在onDestroy中unSubscribe哦</p>
+<p>介绍完了路由的监听,大家应该可以正常使用ngrx了,但是还有部分概念可能还不太了解,下面简单分析一下源码</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><h3 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h3><p>操作的基类,封装了只读属性type,用以定义操作的类型</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> Action &#123;</span><br><span class="line">    <span class="keyword">type</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="createFeatureSelector"><a href="#createFeatureSelector" class="headerlink" title="createFeatureSelector"></a>createFeatureSelector</h3><p>源码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export declare function createFeatureSelector&lt;T, V&gt;(featureName: keyof T): MemoizedSelector&lt;T, V&gt;;</span><br></pre></td></tr></table></figure>
+<p>createFeatureSelector返回MemoizedSelector对象,而MemoizedSelector继承自Selector</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> MemoizedSelector&lt;State, Result&gt; <span class="keyword">extends</span> Selector&lt;State, Result&gt; &#123;</span><br><span class="line">    release(): <span class="built_in">void</span>;</span><br><span class="line">    projector: AnyFn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而Selector是做什么的呢,我们看一下源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export declare type Selector&lt;T, V&gt; = (state: T) =&gt; V;</span><br></pre></td></tr></table></figure>
+<p>从源码可以看出Selector接收两个泛型T,V,之后把T类型的state转化为V类型</p>
+<p>所以之前使用到的</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getThemeState = createFeatureSelector&lt;State, themeReducer.State&gt;(</span><br><span class="line">  <span class="string">'_theme'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>就表示从Actions中选择出”_theme”对应的Action并把类型从State转化成themeReducer.State,而themeReducer.State本身就是包含在此State中的</p>
+<h3 id="createSelector"><a href="#createSelector" class="headerlink" title="createSelector"></a>createSelector</h3><p>源码:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export declare function createSelector&lt;State, S1, Result&gt;(s1: Selector&lt;State, S1&gt;, projector: (s1: S1) =&gt; Result): MemoizedSelector&lt;State, Result&gt;;</span><br></pre></td></tr></table></figure>
+<p>接收三个泛型,State(状态),S1(要转化的State,也就是上面createFeatureSelector中第二个参数),Result(结果)</p>
+<p>接收两个参数,s1(一个selector对象),projector,处理s1的函数,把s1转化为Result,最终返回结果是包含State和Result的泛型的Selector对象</p>
+<p>简单来说就是Selector传递了两个参数,把第一个参数里的值作为参数传递给第二个参数去执行</p>
+<p>补充说明:<strong>ngrx不支持通过a标签直接跳转路由,如果通过a标签跳转,每次跳转都会使State初始化</strong></p>
+<p>开发环境:</p>
+<ul>
+<li>node: v11.1.0</li>
+<li>npm: 6.4.1</li>
+<li>Angular CLI: 6.1.3</li>
+<li>ngrx/core:1.2.0</li>
+<li>ngrx/router-store: 6.1.2</li>
+<li>ngrx/store: 6.1.2</li>
+</ul>
+<p><a href="https://github.com/AdamZero/NgrxDemo" target="_blank" rel="noopener">源码地址</a></p>
+<p><strong>有问题请私信或留言</strong></p>
+<p><strong>谢谢阅读,希望可以帮助到你</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div class="my-copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/Ngrx使用详解/">Ngrx使用详解</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 冷鸢 的个人博客">冷鸢</a></p>
+  <p><span>发布时间:</span>2018年11月14日 - 14:32</p>
+  <p><span>最后更新:</span>2018年11月14日 - 15:05</p>
+  <p><span>原始链接:</span><a href="/Ngrx使用详解/" title="Ngrx使用详解">http://yoursite.com/Ngrx使用详解/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yoursite.com/Ngrx使用详解/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>
+</div>
+<script>
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({
+          title: "",
+          text: '复制成功',
+          icon: "success",
+          showConfirmButton: true
+          });
+	});
+    });
+</script>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" <i class="fa fa-tag"></i> 前端</a>
+          
+            <a href="/tags/AngularJS/" <i class="fa fa-tag"></i> AngularJS</a>
+          
+            <a href="/tags/Ngrx/" <i class="fa fa-tag"></i> Ngrx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/angular之界面状态保存/" rel="next" title="angular之界面状态保存">
+                <i class="fa fa-chevron-left"></i> angular之界面状态保存
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MDI3MS8xNjc5OA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="冷鸢" />
+            
+              <p class="site-author-name" itemprop="name">冷鸢</p>
+              <p class="site-description motion-element" itemprop="description">冷鸢</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/AdamZero" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/0b15b58b0205" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-book"></i>简书</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_34713676" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-rotate-right"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ngrx是什么"><span class="nav-number">1.</span> <span class="nav-text">ngrx是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方法"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装ngrx"><span class="nav-number">2.1.</span> <span class="nav-text">1.安装ngrx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-建立ngrx文件夹"><span class="nav-number">2.2.</span> <span class="nav-text">2.建立ngrx文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-在actions目录下创建action"><span class="nav-number">2.3.</span> <span class="nav-text">3.在actions目录下创建action</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-在reducers目录下创建reducer"><span class="nav-number">2.4.</span> <span class="nav-text">4.在reducers目录下创建reducer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-在index-ts中管理action和reducer"><span class="nav-number">2.5.</span> <span class="nav-text">5.在index.ts中管理action和reducer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-在model中导入"><span class="nav-number">2.6.</span> <span class="nav-text">6.在model中导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-在文件中使用"><span class="nav-number">2.7.</span> <span class="nav-text">7.在文件中使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">2.7.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#触发事件"><span class="nav-number">2.7.2.</span> <span class="nav-text">触发事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监听改变"><span class="nav-number">2.7.3.</span> <span class="nav-text">监听改变</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监听路由"><span class="nav-number">3.</span> <span class="nav-text">监听路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明"><span class="nav-number">4.</span> <span class="nav-text">说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Action"><span class="nav-number">4.1.</span> <span class="nav-text">Action</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#createFeatureSelector"><span class="nav-number">4.2.</span> <span class="nav-text">createFeatureSelector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#createSelector"><span class="nav-number">4.3.</span> <span class="nav-text">createSelector</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">冷鸢</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">15.5k</span>
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+<span class="post-meta-divider">|</span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
